@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="bg" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FMS - Finval Multi Service | Engineering Excellence</title>
+    <meta name="description" content="FMS (Finval Multi Service) - Хибриден инженеринг в тежкия морски сектор и комплексни индустриални решения на сушата. Стабилност от 2007 г.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#0F172A',
+                        orange: '#F97316',
+                        steel: '#64748B',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'marine-bg': "url('https://images.unsplash.com/photo-1599839575945-a9e5af0c3fa5?q=80&w=2069&auto=format&fit=crop')",
+                        'industry-bg': "url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop')"
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles & Utilities */
+        body {
+            background-color: #0F172A; /* Deep Navy */
+            color: #F8FAFC;
+        }
+        
+        /* Glassmorphism */
+        .glass {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+        }
+
+        /* Parallax Background Helper */
+        .bg-parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        @media (max-width: 768px) {
+            /* iOS workaround for background-attachment: fixed */
+            .bg-parallax {
+                background-attachment: scroll;
+            }
+        }
+
+        /* Hero Split Transition overrides */
+        .split-panel {
+            transition: flex 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Hide scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F172A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #64748B;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F97316;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden selection:bg-orange selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#home" class="text-2xl font-extrabold tracking-tighter text-white">
+                        FM<span class="text-orange">S</span>.
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="text-sm font-medium text-gray-300 hover:text-orange transition-colors">За нас</a>
+                    <a href="#services" class="text-sm font-medium text-gray-300 hover:text-orange transition-colors">Услуги</a>
+                    <a href="#portfolio" class="text-sm font-medium text-gray-300 hover:text-orange transition-colors">Проекти</a>
+                    <a href="#contact" class="text-sm font-medium text-gray-300 hover:text-orange transition-colors">Контакти</a>
+                    
+                    <!-- Language Switcher -->
+                    <div class="flex items-center space-x-2 border-l border-steel/40 pl-4">
+                        <button onclick="setLang('bg')" id="btn-bg-desk" class="text-sm font-bold text-orange transition-colors">BG</button>
+                        <button onclick="setLang('en')" id="btn-en-desk" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">EN</button>
+                        <button onclick="setLang('de')" id="btn-de-desk" class="text-sm font-medium text-gray-400 hover:text-white transition-colors">DE</button>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none p-2">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="hidden md:hidden bg-navy/95 backdrop-blur-xl absolute top-20 left-0 w-full border-b border-steel/20 shadow-2xl">
+            <div class="px-4 pt-2 pb-6 space-y-2 text-center">
+                <a href="#about" class="block px-3 py-4 text-lg font-medium text-white hover:bg-white/5 rounded-lg">За нас</a>
+                <a href="#services" class="block px-3 py-4 text-lg font-medium text-white hover:bg-white/5 rounded-lg">Услуги</a>
+                <a href="#portfolio" class="block px-3 py-4 text-lg font-medium text-white hover:bg-white/5 rounded-lg">Проекти</a>
+                <a href="#contact" class="block px-3 py-4 text-lg font-medium text-white hover:bg-white/5 rounded-lg">Контакти</a>
+                <div class="flex justify-center space-x-6 pt-4 border-t border-steel/20 mt-2">
+                    <button onclick="setLang('bg')" id="btn-bg-mob" class="text-lg font-bold text-orange transition-colors">BG</button>
+                    <button onclick="setLang('en')" id="btn-en-mob" class="text-lg font-medium text-gray-400 hover:text-white transition-colors">EN</button>
+                    <button onclick="setLang('de')" id="btn-de-mob" class="text-lg font-medium text-gray-400 hover:text-white transition-colors">DE</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Split-Screen Hero Section -->
+    <header id="home" class="relative w-full h-[200vh] md:h-screen flex flex-col md:flex-row bg-navy overflow-hidden">
+        
+        <!-- Central Title Anchor (Sticky on Mobile, Absolute on Desktop) -->
+        <div class="absolute inset-0 md:flex md:items-center md:justify-center z-20 pointer-events-none hidden md:flex">
+            <div class="bg-navy/85 backdrop-blur-md border border-steel/30 p-8 md:p-12 rounded-2xl text-center shadow-2xl transform transition-transform hover:scale-105 pointer-events-auto">
+                <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-2 tracking-tight" data-aos="zoom-in" data-aos-duration="1000">FMS</h1>
+                <p class="text-orange tracking-[0.2em] uppercase text-xs md:text-sm font-semibold" data-aos="fade-up" data-aos-delay="300">Инженерно съвършенство<br>на суша и по море</p>
+            </div>
+        </div>
+
+        <!-- Mobile Central Anchor (Sticky positioning) -->
+        <div class="sticky top-[50vh] -translate-y-1/2 z-30 pointer-events-none flex justify-center w-full md:hidden h-0">
+             <div class="bg-navy/90 backdrop-blur-md border border-steel/30 p-6 rounded-2xl text-center shadow-2xl pointer-events-auto w-11/12 max-w-sm">
+                <h1 class="text-5xl font-extrabold text-white mb-2 tracking-tight">FMS</h1>
+                <p class="text-orange tracking-[0.15em] uppercase text-xs font-semibold">Инженерно съвършенство<br>на суша и по море</p>
+            </div>
+        </div>
+
+        <!-- Panel 1: Marine -->
+        <div class="split-panel relative w-full h-screen md:h-full md:flex-1 md:hover:flex-[1.4] group overflow-hidden cursor-pointer" onclick="document.getElementById('services').scrollIntoView({behavior: 'smooth'})">
+            <!-- Background Image -->
+            <div class="absolute inset-0 bg-marine-bg bg-parallax transition-transform duration-[2s] group-hover:scale-105"></div>
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-navy/70 group-hover:bg-navy/40 transition-colors duration-500"></div>
+            <!-- Content -->
+            <div class="absolute bottom-20 left-8 md:bottom-16 md:left-12 z-10">
+                <div class="flex items-center space-x-4 mb-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    <i class="fas fa-ship text-3xl md:text-5xl text-orange"></i>
+                    <h2 class="text-4xl md:text-5xl font-bold text-white">Морски сектор</h2>
+                </div>
+                <p class="text-gray-300 max-w-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 hidden md:block">
+                    Комплексни решения за корабостроене, ремонт и мениджмънт на екипажи.
+                </p>
+                <div class="mt-6 inline-flex items-center text-sm font-bold text-white uppercase tracking-wider group-hover:text-orange transition-colors">
+                    Разгледай сектора <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel 2: Industrial -->
+        <div class="split-panel relative w-full h-screen md:h-full md:flex-1 md:hover:flex-[1.4] group overflow-hidden cursor-pointer" onclick="document.getElementById('services').scrollIntoView({behavior: 'smooth'})">
+            <!-- Background Image -->
+            <div class="absolute inset-0 bg-industry-bg bg-parallax transition-transform duration-[2s] group-hover:scale-105"></div>
+            <!-- Overlay -->
+            <div class="absolute inset-0 bg-navy/70 group-hover:bg-navy/40 transition-colors duration-500"></div>
+            <!-- Content -->
+            <div class="absolute bottom-20 right-8 md:bottom-16 md:right-12 z-10 text-right">
+                <div class="flex items-center justify-end space-x-4 mb-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white">Индустриален сектор</h2>
+                    <i class="fas fa-industry text-3xl md:text-5xl text-orange"></i>
+                </div>
+                <p class="text-gray-300 max-w-sm ml-auto opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 hidden md:block">
+                    Проектиране и изграждане на метални халета, ОВК и електроинсталации.
+                </p>
+                <div class="mt-6 inline-flex items-center justify-end text-sm font-bold text-white uppercase tracking-wider group-hover:text-orange transition-colors">
+                    <i class="fas fa-arrow-left mr-2 group-hover:-translate-x-2 transition-transform"></i> Разгледай сектора
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-navy relative border-b border-steel/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div data-aos="fade-right">
+                    <div class="inline-flex items-center space-x-2 text-orange font-bold uppercase tracking-widest mb-4">
+                        <span class="w-8 h-0.5 bg-orange"></span>
+                        <span>За Компанията</span>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6 leading-tight">Стабилност и Мащаб от <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange to-yellow-500">2007 година</span>.</h2>
+                    <p class="text-gray-400 text-lg mb-6 leading-relaxed">
+                        FMS (Finval Multi Service) е лидер в предоставянето на хибридни инженерни решения. Нашата експертиза покрива пълния спектър от изисквания в тежкия морски сектор и реализацията на комплексни индустриални обекти на сушата.
+                    </p>
+                    <p class="text-gray-400 text-lg mb-8 leading-relaxed">
+                        Ние съчетаваме инженерна прецизност, висококвалифицирани кадри и безкомпромисни стандарти за качество и безопасност.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-8 mt-10">
+                        <div>
+                            <h4 class="text-4xl font-bold text-white mb-2">15+</h4>
+                            <p class="text-steel font-medium">Години Опит</p>
+                        </div>
+                        <div>
+                            <h4 class="text-4xl font-bold text-white mb-2">500+</h4>
+                            <p class="text-steel font-medium">Завършени Проекта</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative" data-aos="fade-left">
+                    <div class="absolute inset-0 bg-orange/20 rounded-2xl transform translate-x-4 translate-y-4"></div>
+                    <img src="https://images.unsplash.com/photo-1541888081622-4a02951f28b7?q=80&w=2070&auto=format&fit=crop" alt="Инженерни дейности FMS" class="relative rounded-2xl shadow-2xl w-full object-cover h-[500px]">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 bg-[#0B1120] relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <div class="inline-flex items-center justify-center space-x-2 text-orange font-bold uppercase tracking-widest mb-4">
+                    <span class="w-8 h-0.5 bg-orange"></span>
+                    <span>Нашите Услуги</span>
+                    <span class="w-8 h-0.5 bg-orange"></span>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white">Инженерни Решения</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                
+                <!-- Marine Column -->
+                <div class="bg-navy p-8 md:p-10 rounded-2xl border border-steel/20 hover:border-orange/50 transition-colors" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-blue-500/10 rounded-xl flex items-center justify-center mb-8">
+                        <i class="fas fa-ship text-3xl text-blue-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-6 border-b border-steel/20 pb-4">Морски Сектор (Marine)</h3>
+                    <ul class="space-y-6">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-orange mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">Корабостроене и Ремонт</h4>
+                                <p class="text-sm text-gray-400 mt-1">Цялостно изграждане и специализирани ремонтни дейности на плавателни съдове.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-plane text-orange mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">Летящи екипи (Flying Teams)</h4>
+                                <p class="text-sm text-gray-400 mt-1">Мобилни инженерни групи за бързо реагиране и ремонти по време на плаване или в пристанища по цял свят.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-users text-orange mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">Crew Management</h4>
+                                <p class="text-sm text-gray-400 mt-1">Подбор, обучение и управление на висококвалифицирани екипажи.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Industrial Column -->
+                <div class="bg-navy p-8 md:p-10 rounded-2xl border border-steel/20 hover:border-orange/50 transition-colors" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-orange/10 rounded-xl flex items-center justify-center mb-8">
+                        <i class="fas fa-industry text-3xl text-orange"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-6 border-b border-steel/20 pb-4">Индустриален Сектор (Industrial)</h3>
+                    <ul class="space-y-6">
+                        <li class="flex items-start">
+                            <i class="fas fa-warehouse text-orange mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">Метални халета</h4>
+                                <p class="text-sm text-gray-400 mt-1">Проектиране, изработка и монтаж на индустриални сгради и метални конструкции.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-fan text-orange mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">ОВК (HVAC)</h4>
+                                <p class="text-sm text-gray-400 mt-1">Отоплителни, вентилационни и климатични системи за тежката индустрия.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-bolt text-orange mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">Електроинсталации</h4>
+                                <p class="text-sm text-gray-400 mt-1">Комплексни решения за индустриално електрозахранване и автоматизация.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-border-all text-orange mt-1 mr-4"></i>
+                            <div>
+                                <h4 class="text-lg font-semibold text-white">Инокс парапети и огради</h4>
+                                <p class="text-sm text-gray-400 mt-1">Висококачествени архитектурни и защитни елементи от неръждаема стомана.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-24 bg-navy border-t border-steel/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div data-aos="fade-right">
+                    <div class="inline-flex items-center space-x-2 text-orange font-bold uppercase tracking-widest mb-4">
+                        <span class="w-8 h-0.5 bg-orange"></span>
+                        <span>Нашият Опит</span>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white">Проекти</h2>
+                </div>
+                
+                <!-- Filter Buttons -->
+                <div class="flex space-x-2 mt-6 md:mt-0 overflow-x-auto pb-2" data-aos="fade-left">
+                    <button class="filter-btn active px-6 py-2 rounded-full font-semibold transition-all bg-orange text-navy" data-filter="all">Всички</button>
+                    <button class="filter-btn px-6 py-2 rounded-full font-semibold transition-all bg-transparent text-white border border-steel/40 hover:border-orange" data-filter="marine">Морски</button>
+                    <button class="filter-btn px-6 py-2 rounded-full font-semibold transition-all bg-transparent text-white border border-steel/40 hover:border-orange" data-filter="industrial">Индустриални</button>
+                </div>
+            </div>
+
+            <!-- Portfolio Grid -->
+            <!-- Забележка: Изображенията трябва да бъдат заменени с WebP формат в реална среда за бързо зареждане -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="portfolio-grid">
+                
+                <!-- Item 1: Marine -->
+                <div class="project-card group relative rounded-2xl overflow-hidden aspect-[4/3] bg-steel/10" data-category="marine" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1551065178-57e0e7a2503d?q=80&w=2070&auto=format&fit=crop" alt="Кораборемонт Сух Док" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy via-navy/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <span class="text-orange text-sm font-bold uppercase tracking-wider mb-2 block">Морски</span>
+                        <h4 class="text-xl font-bold text-white mb-2">Основен ремонт - Сух док</h4>
+                        <p class="text-sm text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Пълна инспекция и подмяна на корпусни елементи на товарен кораб.</p>
+                    </div>
+                </div>
+
+                <!-- Item 2: Industrial -->
+                <div class="project-card group relative rounded-2xl overflow-hidden aspect-[4/3] bg-steel/10" data-category="industrial" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2070&auto=format&fit=crop" alt="Метална конструкция хале" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy via-navy/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <span class="text-orange text-sm font-bold uppercase tracking-wider mb-2 block">Индустриални</span>
+                        <h4 class="text-xl font-bold text-white mb-2">Логистично Метално Хале</h4>
+                        <p class="text-sm text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Проектиране и изграждане на 5000 кв.м. складова база.</p>
+                    </div>
+                </div>
+
+                <!-- Item 3: Marine -->
+                <div class="project-card group relative rounded-2xl overflow-hidden aspect-[4/3] bg-steel/10" data-category="marine" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1605281317010-fe5ffe798166?q=80&w=2044&auto=format&fit=crop" alt="Заваряване на борда" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy via-navy/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <span class="text-orange text-sm font-bold uppercase tracking-wider mb-2 block">Морски</span>
+                        <h4 class="text-xl font-bold text-white mb-2">Операция "Flying Team"</h4>
+                        <p class="text-sm text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Спешен авариен ремонт на двигателно отделение по време на рейс.</p>
+                    </div>
+                </div>
+
+                <!-- Item 4: Industrial -->
+                <div class="project-card group relative rounded-2xl overflow-hidden aspect-[4/3] bg-steel/10" data-category="industrial" data-aos="zoom-in" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1542013936693-884638332954?q=80&w=1974&auto=format&fit=crop" alt="ОВК Инсталация" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy via-navy/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <span class="text-orange text-sm font-bold uppercase tracking-wider mb-2 block">Индустриални</span>
+                        <h4 class="text-xl font-bold text-white mb-2">Индустриална ОВК Система</h4>
+                        <p class="text-sm text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Изграждане на мощна вентилационна система за завод.</p>
+                    </div>
+                </div>
+
+                <!-- Item 5: Industrial -->
+                <div class="project-card group relative rounded-2xl overflow-hidden aspect-[4/3] bg-steel/10" data-category="industrial" data-aos="zoom-in" data-aos-delay="500">
+                    <img src="https://images.unsplash.com/photo-1617343258836-391d31fa05d8?q=80&w=2070&auto=format&fit=crop" alt="Инокс Парапети" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy via-navy/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <span class="text-orange text-sm font-bold uppercase tracking-wider mb-2 block">Индустриални</span>
+                        <h4 class="text-xl font-bold text-white mb-2">Архитектурен Инокс</h4>
+                        <p class="text-sm text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Производство и монтаж на специализирани парапети и ограждения.</p>
+                    </div>
+                </div>
+
+                <!-- Item 6: Marine -->
+                <div class="project-card group relative rounded-2xl overflow-hidden aspect-[4/3] bg-steel/10" data-category="marine" data-aos="zoom-in" data-aos-delay="600">
+                    <img src="https://images.unsplash.com/photo-1542223616-740d5dff7f56?q=80&w=1974&auto=format&fit=crop" alt="Екипаж Кораб" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy via-navy/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <span class="text-orange text-sm font-bold uppercase tracking-wider mb-2 block">Морски</span>
+                        <h4 class="text-xl font-bold text-white mb-2">Crew Management Програма</h4>
+                        <p class="text-sm text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">Окомплектоване на пълен технически състав за международен флот.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacts & Conversion Section -->
+    <section id="contact" class="py-24 bg-[#0B1120] relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                
+                <!-- Contact Info & Direct Actions -->
+                <div data-aos="fade-right">
+                    <div class="inline-flex items-center space-x-2 text-orange font-bold uppercase tracking-widest mb-4">
+                        <span class="w-8 h-0.5 bg-orange"></span>
+                        <span>Връзка с нас</span>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-8">Готови ли сте за следващия проект?</h2>
+                    <p class="text-gray-400 text-lg mb-10">Свържете се с нашия екип от инженери за консултация, запитване за оферта или спешна намеса.</p>
+                    
+                    <div class="space-y-6 mb-12">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-navy rounded-full flex items-center justify-center border border-steel/30">
+                                <i class="fas fa-map-marker-alt text-orange text-xl"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-white font-semibold">Централен Офис</h5>
+                                <p class="text-gray-400">ул. Дебър 58, Варна, България</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-navy rounded-full flex items-center justify-center border border-steel/30">
+                                <i class="fas fa-envelope text-orange text-xl"></i>
+                            </div>
+                            <div>
+                                <h5 class="text-white font-semibold">Имейл Адрес</h5>
+                                <a href="mailto:office@fms-bg.com" class="text-gray-400 hover:text-orange transition-colors">office@fms-bg.com</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Direct Chat/Call Buttons -->
+                    <div class="flex flex-wrap gap-4">
+                        <a href="tel:+359888123456" class="flex-1 min-w-[140px] flex items-center justify-center space-x-2 bg-navy border border-steel/30 hover:border-orange hover:bg-orange/10 text-white py-3 px-4 rounded-xl transition-all">
+                            <i class="fas fa-phone-alt text-orange"></i>
+                            <span class="font-bold">+359 888 123 456</span>
+                        </a>
+                        <a href="#" class="flex-1 min-w-[140px] flex items-center justify-center space-x-2 bg-[#25D366]/10 border border-[#25D366]/30 hover:bg-[#25D366] text-white py-3 px-4 rounded-xl transition-all group">
+                            <i class="fab fa-whatsapp text-[#25D366] group-hover:text-white text-xl"></i>
+                            <span class="font-bold">WhatsApp</span>
+                        </a>
+                        <a href="#" class="flex-1 min-w-[140px] flex items-center justify-center space-x-2 bg-[#7360F2]/10 border border-[#7360F2]/30 hover:bg-[#7360F2] text-white py-3 px-4 rounded-xl transition-all group">
+                            <i class="fab fa-viber text-[#7360F2] group-hover:text-white text-xl"></i>
+                            <span class="font-bold">Viber</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Optimized Contact Form -->
+                <div class="bg-navy p-8 md:p-10 rounded-2xl border border-steel/20 shadow-2xl" data-aos="fade-left">
+                    <h3 class="text-2xl font-bold text-white mb-6">Изпратете Запитване</h3>
+                    <form onsubmit="event.preventDefault(); alert('Запитването е изпратено успешно!');" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-400 mb-2">Име / Фирма</label>
+                            <input type="text" id="name" required class="w-full bg-[#0B1120] border border-steel/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange transition-colors">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-400 mb-2">Имейл</label>
+                                <input type="email" id="email" required class="w-full bg-[#0B1120] border border-steel/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange transition-colors">
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-400 mb-2">Телефон</label>
+                                <input type="tel" id="phone" required class="w-full bg-[#0B1120] border border-steel/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange transition-colors">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-400 mb-2">От какво се нуждаете?</label>
+                            <textarea id="message" rows="4" required class="w-full bg-[#0B1120] border border-steel/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-orange focus:ring-1 focus:ring-orange transition-colors resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-orange text-navy font-extrabold text-lg py-4 rounded-xl hover:bg-white transition-colors shadow-[0_0_20px_rgba(249,115,22,0.3)]">
+                            Изпрати Съобщение <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#05080f] py-12 border-t border-steel/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-6 md:mb-0 text-center md:text-left">
+                <a href="#home" class="text-2xl font-extrabold tracking-tighter text-white block mb-2">
+                    FM<span class="text-orange">S</span>.
+                </a>
+                <p class="text-gray-500 text-sm">© 2007-2026 Finval Multi Service. Всички права запазени.</p>
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-linkedin text-xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-facebook text-xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Sticky Call-To-Action (Visible only on small screens) -->
+    <div class="md:hidden fixed bottom-0 left-0 w-full bg-navy/95 backdrop-blur-md border-t border-steel/30 p-3 z-50 flex gap-3 shadow-[0_-10px_20px_rgba(0,0,0,0.3)]">
+        <a href="tel:+359888123456" class="flex-1 bg-white text-navy font-bold py-3 rounded-lg text-center flex items-center justify-center gap-2">
+            <i class="fas fa-phone-alt"></i> Обади се
+        </a>
+        <a href="#contact" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})" class="flex-1 bg-orange text-navy font-bold py-3 rounded-lg text-center flex items-center justify-center gap-2">
+            <i class="fas fa-envelope"></i> Запитване
+        </a>
+    </div>
+
+    <!-- Padding for mobile to account for sticky footer -->
+    <div class="h-20 md:hidden bg-[#05080f]"></div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS Animation Library
+        AOS.init({
+            once: true, // whether animation should happen only once - while scrolling down
+            offset: 100, // offset (in px) from the original trigger point
+            duration: 800, // values from 0 to 3000, with step 50ms
+        });
+
+        // Navbar Scroll Effect (Glassmorphism adjustments)
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg', 'bg-navy/90');
+                navbar.classList.remove('bg-navy/70');
+            } else {
+                navbar.classList.remove('shadow-lg', 'bg-navy/90');
+                navbar.classList.add('bg-navy/70');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuIcon = mobileMenuBtn.querySelector('i');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenuIcon.classList.remove('fa-times');
+                mobileMenuIcon.classList.add('fa-bars');
+            } else {
+                mobileMenuIcon.classList.remove('fa-bars');
+                mobileMenuIcon.classList.add('fa-times');
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuIcon.classList.remove('fa-times');
+                mobileMenuIcon.classList.add('fa-bars');
+            });
+        });
+
+        // Portfolio Filter Logic (No Page Reload)
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projects = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Reset all buttons styling
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-orange', 'text-navy');
+                    b.classList.add('bg-transparent', 'text-white');
+                });
+                // Set active styling to clicked button
+                btn.classList.remove('bg-transparent', 'text-white');
+                btn.classList.add('bg-orange', 'text-navy');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                projects.forEach(project => {
+                    // Slight animation logic
+                    project.style.opacity = '0';
+                    project.style.transform = 'scale(0.95)';
+                    
+                    setTimeout(() => {
+                        if (filterValue === 'all' || project.getAttribute('data-category') === filterValue) {
+                            project.style.display = 'block';
+                            // Trigger reflow
+                            void project.offsetWidth;
+                            project.style.opacity = '1';
+                            project.style.transform = 'scale(1)';
+                        } else {
+                            project.style.display = 'none';
+                        }
+                    }, 300); // Wait for fade out
+                });
+            });
+        });
+
+        // --- LANGUAGE TRANSLATION ENGINE ---
+        const dict = {
+            "За нас": { en: "About Us", de: "Über uns" },
+            "Услуги": { en: "Services", de: "Leistungen" },
+            "Проекти": { en: "Projects", de: "Projekte" },
+            "Контакти": { en: "Contact", de: "Kontakt" },
+            "Инженерно съвършенство": { en: "Engineering Excellence", de: "Technische Exzellenz" },
+            "на суша и по море": { en: "on Land and Sea", de: "zu Land und zu Wasser" },
+            "Морски сектор": { en: "Marine", de: "Maritim" },
+            "Индустриален сектор": { en: "Industrial", de: "Industriell" },
+            "Комплексни решения за корабостроене, ремонт и мениджмънт на екипажи.": { en: "Comprehensive solutions for shipbuilding, repair, and crew management.", de: "Umfassende Lösungen für Schiffbau, Reparatur und Crew-Management." },
+            "Разгледай сектора": { en: "Explore Sector", de: "Sektor entdecken" },
+            "Проектиране и изграждане на метални халета, ОВК и електроинсталации.": { en: "Design and construction of metal halls, HVAC, and electrical installations.", de: "Planung und Bau von Metallhallen, HLK und Elektroinstallationen." },
+            "За Компанията": { en: "About the Company", de: "Über das Unternehmen" },
+            "Стабилност и Мащаб от": { en: "Stability and Scale since", de: "Stabilität und Größe seit" },
+            "2007 година": { en: "2007", de: "2007" },
+            "FMS (Finval Multi Service) е лидер в предоставянето на хибридни инженерни решения. Нашата експертиза покрива пълния спектър от изисквания в тежкия морски сектор и реализацията на комплексни индустриални обекти на сушата.": { en: "FMS is a leader in providing hybrid engineering solutions. Our expertise covers the full spectrum of heavy marine sector requirements and complex industrial facilities on land.", de: "FMS ist führend in der Bereitstellung hybrider Ingenieurlösungen. Unsere Expertise deckt das gesamte Spektrum des maritimen Sektors und komplexer Industrieanlagen an Land ab." },
+            "Ние съчетаваме инженерна прецизност, висококвалифицирани кадри и безкомпромисни стандарти за качество и безопасност.": { en: "We combine engineering precision, highly qualified personnel, and uncompromising standards for quality and safety.", de: "Wir vereinen Ingenieurspräzision, hochqualifiziertes Personal und kompromisslose Qualitäts- und Sicherheitsstandards." },
+            "Години Опит": { en: "Years Experience", de: "Jahre Erfahrung" },
+            "Завършени Проекта": { en: "Completed Projects", de: "Abgeschlossene Projekte" },
+            "Нашите Услуги": { en: "Our Services", de: "Unsere Leistungen" },
+            "Инженерни Решения": { en: "Engineering Solutions", de: "Ingenieurlösungen" },
+            "Морски Сектор (Marine)": { en: "Marine Sector", de: "Maritimer Sektor" },
+            "Корабостроене и Ремонт": { en: "Shipbuilding and Repair", de: "Schiffbau und Reparatur" },
+            "Цялостно изграждане и специализирани ремонтни дейности на плавателни съдове.": { en: "Complete construction and specialized repair activities of vessels.", de: "Kompletter Bau und spezialisierte Reparaturarbeiten an Schiffen." },
+            "Летящи екипи (Flying Teams)": { en: "Flying Teams", de: "Fliegende Teams" },
+            "Мобилни инженерни групи за бързо реагиране и ремонти по време на плаване или в пристанища по цял свят.": { en: "Mobile engineering groups for rapid response and repairs during voyages or in ports worldwide.", de: "Mobile Ingenieursgruppen für schnelle Reaktionen und Reparaturen während der Fahrt oder in Häfen weltweit." },
+            "Crew Management": { en: "Crew Management", de: "Crew Management" },
+            "Подбор, обучение и управление на висококвалифицирани екипажи.": { en: "Selection, training, and management of highly qualified crews.", de: "Auswahl, Schulung und Verwaltung hochqualifizierter Besatzungen." },
+            "Индустриален Сектор (Industrial)": { en: "Industrial Sector", de: "Industriesektor" },
+            "Метални халета": { en: "Metal Halls", de: "Metallhallen" },
+            "Проектиране, изработка и монтаж на индустриални сгради и метални конструкции.": { en: "Design, manufacture, and installation of industrial buildings and metal structures.", de: "Entwurf, Herstellung und Montage von Industriegebäuden und Metallkonstruktionen." },
+            "ОВК (HVAC)": { en: "HVAC", de: "HLK (HVAC)" },
+            "Отоплителни, вентилационни и климатични системи за тежката индустрия.": { en: "Heating, ventilation, and air conditioning systems for heavy industry.", de: "Heizungs-, Lüftungs- und Klimaanlagen für die Schwerindustrie." },
+            "Електроинсталации": { en: "Electrical Installations", de: "Elektroinstallationen" },
+            "Комплексни решения за индустриално електрозахранване и автоматизация.": { en: "Comprehensive solutions for industrial power supply and automation.", de: "Umfassende Lösungen für die industrielle Stromversorgung und Automatisierung." },
+            "Инокс парапети и огради": { en: "Stainless Steel Railings", de: "Edelstahlgeländer und Zäune" },
+            "Висококачествени архитектурни и защитни елементи от неръждаема стомана.": { en: "High-quality architectural and protective elements made of stainless steel.", de: "Hochwertige architektonische und schützende Elemente aus Edelstahl." },
+            "Нашият Опит": { en: "Our Experience", de: "Unsere Erfahrung" },
+            "Всички": { en: "All", de: "Alle" },
+            "Морски": { en: "Marine", de: "Maritim" },
+            "Индустриални": { en: "Industrial", de: "Industriell" },
+            "Основен ремонт - Сух док": { en: "Major Repair - Dry Dock", de: "Hauptreparatur - Trockendock" },
+            "Пълна инспекция и подмяна на корпусни елементи на товарен кораб.": { en: "Full inspection and replacement of hull elements of a cargo ship.", de: "Vollständige Inspektion und Austausch von Rumpfelementen eines Frachtschiffs." },
+            "Логистично Метално Хале": { en: "Logistics Metal Hall", de: "Logistik-Metallhalle" },
+            "Проектиране и изграждане на 5000 кв.м. складова база.": { en: "Design and construction of a 5000 sq.m. warehouse base.", de: "Planung und Bau einer 5000 qm großen Lagerhalle." },
+            "Операция \"Flying Team\"": { en: "Operation 'Flying Team'", de: "Operation 'Flying Team'" },
+            "Спешен авариен ремонт на двигателно отделение по време на рейс.": { en: "Urgent emergency repair of engine room during voyage.", de: "Dringende Notfallreparatur des Maschinenraums während der Fahrt." },
+            "Индустриална ОВК Система": { en: "Industrial HVAC System", de: "Industrielles HLK-System" },
+            "Изграждане на мощна вентилационна система за завод.": { en: "Construction of a powerful ventilation system for a plant.", de: "Bau einer leistungsstarken Lüftungsanlage für ein Werk." },
+            "Архитектурен Инокс": { en: "Architectural Stainless Steel", de: "Architektonischer Edelstahl" },
+            "Производство и монтаж на специализирани парапети и ограждения.": { en: "Production and installation of specialized railings and enclosures.", de: "Herstellung und Montage von speziellen Geländern und Einfriedungen." },
+            "Crew Management Програма": { en: "Crew Management Program", de: "Crew Management Programm" },
+            "Окомплектоване на пълен технически състав за международен флот.": { en: "Manning of a full technical staff for an international fleet.", de: "Besetzung eines kompletten technischen Personals für eine internationale Flotte." },
+            "Връзка с нас": { en: "Contact Us", de: "Kontaktiere uns" },
+            "Готови ли сте за следващия проект?": { en: "Ready for your next project?", de: "Bereit für Ihr nächstes Projekt?" },
+            "Свържете се с нашия екип от инженери за консултация, запитване за оферта или спешна намеса.": { en: "Contact our engineers for a consultation, quote request, or urgent intervention.", de: "Kontaktieren Sie unsere Ingenieure für eine Beratung, ein Angebot oder einen dringenden Einsatz." },
+            "Централен Офис": { en: "Head Office", de: "Hauptbüro" },
+            "ул. Дебър 58, Варна, България": { en: "58 Debar Str., Varna, Bulgaria", de: "Debar Str. 58, Varna, Bulgarien" },
+            "Имейл Адрес": { en: "Email Address", de: "E-Mail-Adresse" },
+            "Изпратете Запитване": { en: "Send an Inquiry", de: "Anfrage senden" },
+            "Име / Фирма": { en: "Name / Company", de: "Name / Firma" },
+            "Имейл": { en: "Email", de: "E-Mail" },
+            "Телефон": { en: "Phone", de: "Telefon" },
+            "От какво се нуждаете?": { en: "What do you need?", de: "Was benötigen Sie?" },
+            "Изпрати Съобщение": { en: "Send Message", de: "Nachricht senden" },
+            "Обади се": { en: "Call", de: "Anrufen" },
+            "Запитване": { en: "Inquiry", de: "Anfrage" },
+            "© 2007-2026 Finval Multi Service. Всички права запазени.": { en: "© 2007-2026 Finval Multi Service. All rights reserved.", de: "© 2007-2026 Finval Multi Service. Alle Rechte vorbehalten." }
+        };
+
+        const translatableNodes = [];
+
+        function initI18n() {
+            const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+            let node;
+            while (node = walker.nextNode()) {
+                if (node.parentElement && (node.parentElement.tagName === 'SCRIPT' || node.parentElement.tagName === 'STYLE')) continue;
+                
+                const originalText = node.nodeValue;
+                const trimmed = originalText.trim();
+                
+                if (trimmed && dict[trimmed]) {
+                    translatableNodes.push({
+                        node: node,
+                        orig: trimmed,
+                        prefix: originalText.substring(0, originalText.indexOf(trimmed)),
+                        suffix: originalText.substring(originalText.indexOf(trimmed) + trimmed.length)
+                    });
+                }
+            }
+        }
+
+        function setLang(lang) {
+            // Update Active Buttons styles
+            const langs = ['bg', 'en', 'de'];
+            langs.forEach(l => {
+                const isCurrent = (l === lang);
+                const dBtn = document.getElementById(`btn-${l}-desk`);
+                if(dBtn) dBtn.className = isCurrent ? "text-sm font-bold text-orange transition-colors" : "text-sm font-medium text-gray-400 hover:text-white transition-colors";
+                
+                const mBtn = document.getElementById(`btn-${l}-mob`);
+                if(mBtn) mBtn.className = isCurrent ? "text-lg font-bold text-orange transition-colors" : "text-lg font-medium text-gray-400 hover:text-white transition-colors";
+            });
+
+            // Replace Texts dynamically
+            translatableNodes.forEach(item => {
+                if (lang === 'bg') {
+                    item.node.nodeValue = item.prefix + item.orig + item.suffix; // Връщаме оригинала
+                } else if (dict[item.orig] && dict[item.orig][lang]) {
+                    item.node.nodeValue = item.prefix + dict[item.orig][lang] + item.suffix; // Превод
+                }
+            });
+        }
+
+        // Initialize dictionary immediately
+        initI18n();
+    </script>
+</body>
+</html>
