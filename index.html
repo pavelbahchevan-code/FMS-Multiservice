@@ -95,14 +95,15 @@
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 glass transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center">
-                    <a href="#home" class="text-2xl font-extrabold tracking-tighter text-white">
-                        FM<span class="text-orange">S</span>.
-                    </a>
-                </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+            <div class="flex-shrink-0 flex items-center">
+                <a href="#home" class="flex items-center group">
+                    <img src="logo.png" alt="FMS Logo" class="h-12 w-auto transition-transform duration-300 group-hover:scale-105">
+                    
+                    <span class="text-2xl font-extrabold text-orange ml-0.5">.</span>
+                </a>
+            </div>
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-8">
@@ -508,20 +509,22 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#05080f] py-12 border-t border-steel/20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
-            <div class="mb-6 md:mb-0 text-center md:text-left">
-                <a href="#home" class="text-2xl font-extrabold tracking-tighter text-white block mb-2">
-                    FM<span class="text-orange">S</span>.
-                </a>
-                <p class="text-gray-500 text-sm">© 2007-2026 Finval Multi Service. Всички права запазени.</p>
-            </div>
-            <div class="flex space-x-6">
-                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-linkedin text-xl"></i></a>
-                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-facebook text-xl"></i></a>
-            </div>
+  <footer class="bg-[#05080f] py-12 border-t border-steel/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0 text-center md:text-left">
+            <a href="#home" class="inline-flex items-center mb-4 group">
+                <img src="logo.png" alt="FMS Logo" class="h-10 w-auto transition-opacity duration-300 group-hover:opacity-80">
+                <span class="text-xl font-extrabold text-orange ml-0.5">.</span>
+            </a>
+            <p class="text-gray-500 text-sm">© 2007-2026 Finval Multi Service. Всички права запазени.</p>
         </div>
-    </footer>
+        
+        <div class="flex space-x-6">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-linkedin text-xl"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-facebook text-xl"></i></a>
+        </div>
+    </div>
+</footer>
 
     <!-- Mobile Sticky Call-To-Action (Visible only on small screens) -->
     <div class="md:hidden fixed bottom-0 left-0 w-full bg-navy/95 backdrop-blur-md border-t border-steel/30 p-3 z-50 flex gap-3 shadow-[0_-10px_20px_rgba(0,0,0,0.3)]">
